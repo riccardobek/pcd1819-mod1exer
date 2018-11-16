@@ -2,6 +2,11 @@ package multiset;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Files;
+import java.util.stream.BaseStream;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +48,7 @@ public final class HashMultiSet<T, V> {
 	    if(index==-1){
 	        HashKey.add(t);
 	        Number firstValue = 1;
-            valueToInsert = (v)firstValue;
+            valueToInsert = (V)firstValue;
 	        Frequency.add(valueToInsert);
         }
         else{
@@ -75,7 +80,8 @@ public final class HashMultiSet<T, V> {
 		if(HashKey.indexOf(t)!=-1){
 		    return Frequency.get(HashKey.indexOf(t));
         }
-        return (V)0;
+        Number results = 0;
+        return (V)results;
 	    //throw new UnsupportedOperationException();
 	}
 	
@@ -90,13 +96,13 @@ public final class HashMultiSet<T, V> {
 	 * */
 	public void buildFromFile(Path source) throws IOException {
 	    try{
-	        List<T> readFile = Files.lines(source).map(line->line.split(",")).collect(Collectors.toList());
-	        for(T i:readFile.size){
+	        //String readFile = Files.lines(source).spliterator();//.map(line->line.split(","));
+	        for(T i:readFile){
 	            addElement(i);
             }
         }
         catch (IOException e){
-	        System.out.println("Reading error: "+ e.getStackTrace());
+	        throw new IOException();
         }
 		//throw new UnsupportedOperationException();
 		
@@ -107,7 +113,7 @@ public final class HashMultiSet<T, V> {
 	 * @param source List<T>: source of the multiset
 	 * */
 	public void buildFromCollection(List<? extends T> source) {
-        for(T i:source.size){
+        for(T i:source){
             addElement(i);
         }
 	    //throw new UnsupportedOperationException();
@@ -121,9 +127,9 @@ public final class HashMultiSet<T, V> {
 	 */
 	public List<T> linearize() {
 	    List<T> result = new ArrayList<>();
-        for (int i:HashKey.size()) {
-            for(int j:Frequency.get(i)){
-                result.add(HashKey.get(i));
+        for (T i:HashKey) {
+            for(int j=0;j<Frequency.size();++j){
+                result.add(i);
             }
         }
         return result;

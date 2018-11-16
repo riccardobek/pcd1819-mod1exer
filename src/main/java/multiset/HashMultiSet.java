@@ -43,7 +43,7 @@ public final class HashMultiSet<T, V> {
 	    if(index==-1){
 	        HashKey.add(t);
 	        Number firstValue = 1;
-            V valueToInsert = (v)firstValue;
+            valueToInsert = (v)firstValue;
 	        Frequency.add(valueToInsert);
         }
         else{
@@ -63,7 +63,8 @@ public final class HashMultiSet<T, V> {
 	 * @return V: true if the element is present, false otherwise.
 	 * */	
 	public boolean isPresent(T t) {
-		throw new UnsupportedOperationException();		
+		return HashKey.indexOf(t)!=-1;
+		//throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -71,7 +72,11 @@ public final class HashMultiSet<T, V> {
 	 * @return V: frequency count of parameter t ('0' if not present)
 	 * */
 	public V getElementFrequency(T t) {
-		throw new UnsupportedOperationException();		
+		if(HashKey.indexOf(t)!=-1){
+		    return Frequency.get(HashKey.indexOf(t));
+        }
+        return (V)0;
+	    //throw new UnsupportedOperationException();
 	}
 	
 	
@@ -84,7 +89,16 @@ public final class HashMultiSet<T, V> {
 	 * @param source Path: source of the multiset
 	 * */
 	public void buildFromFile(Path source) throws IOException {
-		throw new UnsupportedOperationException();
+	    try{
+	        List<T> readFile = Files.lines(source).map(line->line.split(",")).collect(Collectors.toList());
+	        for(T i:readFile.size){
+	            addElement(i);
+            }
+        }
+        catch (IOException e){
+	        System.out.println("Reading error: "+ e.getStackTrace());
+        }
+		//throw new UnsupportedOperationException();
 		
 	}
 
@@ -93,7 +107,10 @@ public final class HashMultiSet<T, V> {
 	 * @param source List<T>: source of the multiset
 	 * */
 	public void buildFromCollection(List<? extends T> source) {
-		throw new UnsupportedOperationException();
+        for(T i:source.size){
+            addElement(i);
+        }
+	    //throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -103,7 +120,14 @@ public final class HashMultiSet<T, V> {
 	 * @return List<T>: linearized version of the multiset represented by this object.
 	 */
 	public List<T> linearize() {
-		throw new UnsupportedOperationException();
+	    List<T> result = new ArrayList<>();
+        for (int i:HashKey.size()) {
+            for(int j:Frequency.get(i)){
+                result.add(HashKey.get(i));
+            }
+        }
+        return result;
+	    //throw new UnsupportedOperationException();
 	}
 	
 	

@@ -13,14 +13,20 @@ import java.util.List;
  * */
 public final class HashMultiSet<T, V> {
 
-	/**
-	 *XXX: data structure backing this MultiSet implementation. 
-	 */
+    /**
+     *XXX: data structure backing this MultiSet implementation.
+     */
+    private List<T> HashKey;
+    private List<V> Frequency;
+
 	
 	/**
 	 * Sole constructor of the class.
 	 **/
-	public HashMultiSet() {/***/}
+	public HashMultiSet() {
+	    HashKey = new ArrayList<>();
+	    Frequency = new ArrayList<>();
+	}
 	
 	
 	/**
@@ -32,7 +38,21 @@ public final class HashMultiSet<T, V> {
 	 * @return V: frequency count of the element in the multiset
 	 * */	
 	public V addElement(T t) {
-		throw new UnsupportedOperationException();		
+	    int index = HashKey.indexOf(t);
+        V valueToInsert;
+	    if(index==-1){
+	        HashKey.add(t);
+	        Number firstValue = 1;
+            V valueToInsert = (v)firstValue;
+	        Frequency.add(valueToInsert);
+        }
+        else{
+            Number newValue = ((Number)Frequency.get(index)).intValue() + 1;
+            valueToInsert = (V)newValue;
+            Frequency.add(index,valueToInsert);
+        }
+        return valueToInsert;
+		//throw new UnsupportedOperationException();
 	}
 
 	/**

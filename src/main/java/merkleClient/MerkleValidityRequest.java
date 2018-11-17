@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import java.net.InetSocketAddress;
+import java.nio.channels.SocketChannel;
+import java.util.stream.Collectors;
+import java.util.HashMap;
+
 public class MerkleValidityRequest {
 
 	/**
@@ -43,11 +48,31 @@ public class MerkleValidityRequest {
 	 * 	<p>For each transaction the client does the following:</p>
 	 * 		<p>1.: asks for a validityProof for the current transaction</p>
 	 * 		<p>2.: listens for a list of hashes which constitute the merkle nodes contents</p>
-	 * 	<p>Uses the utility method {@link #isTransactionValid(String, String, List<String>) isTransactionValid} </p>
+	 * 	<p>Uses the utility method {@link #isTransactionValid(String, List<String>) isTransactionValid} </p>
 	 * 	<p>method to check whether the current transaction is valid or not.</p>
 	 * */
 	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException {
-		throw new UnsupportedOperationException();
+        InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr, authPort);
+        SocketChannel client = SocketChannel.open(remoteAddress);
+
+        Map<Boolean,List<String>> result = new HashMap<>();
+
+        if(client.isConnected()){
+            List<String> trueValue = mRequests.stream().filter(t -> isTransactionValid(t, mRequests)).collect(Collectors.toList());
+            List<String> falseValue = mRequests.stream().filter(t -> !isTransactionValid(t,mRequests)).collect(Collectors.toList());
+
+            result.put(true,trueValue);
+            result.put(false,falseValue);
+        }
+        else{
+            throw new IOException();
+        }
+
+        client.close();
+
+        return result;
+
+		//throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -60,7 +85,10 @@ public class MerkleValidityRequest {
 	 *  @return: boolean value indicating whether this transaction was validated or not.
 	 * */
 	private boolean isTransactionValid(String merkleTx, List<String> merkleNodes) {
-		throw new UnsupportedOperationException();
+		//TODO: Here I have to use the mRoot!!!
+
+	    //throw new UnsupportedOperationException();
+        return true;
 	}
 
 	/**

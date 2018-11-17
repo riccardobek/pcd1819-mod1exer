@@ -5,6 +5,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class HashMultiSetTest {
 
 	@Rule
@@ -26,4 +29,25 @@ public class HashMultiSetTest {
 	    assertEquals("Equal", true, hmSet.getElementFrequency(1) == 2);
 	}
 
+	@Test
+	public void testbuildFromCollectionNotNullLinearize() {
+		List<String> list = new ArrayList<>();
+		list.add("ab");
+		list.add("bc");
+		list.add("bc");
+		HashMultiSet<String,Integer> hmSet = new HashMultiSet<>();
+		hmSet.buildFromCollection(list);
+		List<String> list2 = new ArrayList<>();
+		list2=hmSet.linearize();
+		assertTrue(list.equals(list2));
+	}
+
+	@Test
+	public void testIsPresent() {
+		HashMultiSet<Integer, Integer> hmSet = new HashMultiSet<>();
+		hmSet.addElement(1);
+		hmSet.addElement(2);
+		hmSet.addElement(1);
+		assertTrue(hmSet.isPresent(2));
+	}
 }

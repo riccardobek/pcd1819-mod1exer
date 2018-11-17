@@ -2,12 +2,12 @@ package multiset;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+
 import java.nio.file.Files;
-import java.util.stream.BaseStream;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>A MultiSet models a data structure containing elements along with their frequency count i.e., </p>
@@ -47,17 +47,16 @@ public final class HashMultiSet<T, V> {
         V valueToInsert;
 	    if(index==-1){
 	        HashKey.add(t);
-	        Number firstValue = 1;
+	        Integer firstValue = 1;
             valueToInsert = (V)firstValue;
 	        Frequency.add(valueToInsert);
         }
         else{
-            Number newValue = ((Number)Frequency.get(index)).intValue() + 1;
+            Integer newValue = ((Integer)Frequency.get(index)).intValue() + 1;
             valueToInsert = (V)newValue;
             Frequency.add(index,valueToInsert);
         }
         return valueToInsert;
-		//throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -69,7 +68,6 @@ public final class HashMultiSet<T, V> {
 	 * */	
 	public boolean isPresent(T t) {
 		return HashKey.indexOf(t)!=-1;
-		//throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -80,9 +78,8 @@ public final class HashMultiSet<T, V> {
 		if(HashKey.indexOf(t)!=-1){
 		    return Frequency.get(HashKey.indexOf(t));
         }
-        Number results = 0;
+        Integer results = 0;
         return (V)results;
-	    //throw new UnsupportedOperationException();
 	}
 	
 	
@@ -94,29 +91,31 @@ public final class HashMultiSet<T, V> {
 	 * 
 	 * @param source Path: source of the multiset
 	 * */
-	public void buildFromFile(Path source) throws IOException {
-	    try{
-	        //String readFile = Files.lines(source).spliterator();//.map(line->line.split(","));
-	        for(T i:readFile){
-	            addElement(i);
-            }
-        }
-        catch (IOException e){
-	        throw new IOException();
-        }
-		//throw new UnsupportedOperationException();
-		
+	public void buildFromFile(Path source) throws IOException, IllegalArgumentException {
+		if(source == null)
+			throw new IllegalArgumentException("Method should be invoked with a non null file path");
+
+		if(Files.notExists(source))
+			throw new IOException("The method should be invoked on an existing file");
+
+		String readFileString = new String(Files.readAllBytes(source));
+		List<String> listOfString =  Stream.of(readFileString.split(",")).collect(Collectors.toList());
+		for(String i:listOfString){
+			addElement((T)i);
+		}
+
 	}
 
 	/**
 	 * Same as before with the difference being the source type.
 	 * @param source List<T>: source of the multiset
 	 * */
-	public void buildFromCollection(List<? extends T> source) {
+	public void buildFromCollection(List<? extends T> source) throws IllegalArgumentException {
+		if(source == null)
+			throw new IllegalArgumentException("Method should be invoked with a non null file path");
         for(T i:source){
             addElement(i);
         }
-	    //throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -127,13 +126,12 @@ public final class HashMultiSet<T, V> {
 	 */
 	public List<T> linearize() {
 	    List<T> result = new ArrayList<>();
-        for (T i:HashKey) {
-            for(int j=0;j<Frequency.size();++j){
-                result.add(i);
+        for (int i=0;i<HashKey.size();++i) {
+            for(int j=0;j<(Integer)Frequency.get(i);++j){
+                result.add(HashKey.get(i));
             }
         }
         return result;
-	    //throw new UnsupportedOperationException();
 	}
 	
 	

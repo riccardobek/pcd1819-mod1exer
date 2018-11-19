@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="multiset.HashMultiSetTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2018-11-17T02:10:11" hostname="DESKTOP-CT0CCV2" time="0.036">
+<testsuite name="multiset.HashMultiSetTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-11-19T09:44:20" hostname="DESKTOP-CT0CCV2" time="0.111">
   <properties/>
-  <testcase name="testbuildFromCollectionNotNullLinearize" classname="multiset.HashMultiSetTest" time="0.006"/>
+  <testcase name="testbuildFromCollectionNotNullLinearize" classname="multiset.HashMultiSetTest" time="0.021"/>
+  <testcase name="testBuildFromFileExist" classname="multiset.HashMultiSetTest" time="0.039"/>
+  <testcase name="testBuildFromFileNotExist" classname="multiset.HashMultiSetTest" time="0.045"/>
   <testcase name="testIsPresent" classname="multiset.HashMultiSetTest" time="0.0"/>
-  <testcase name="testbuildFromCollection" classname="multiset.HashMultiSetTest" time="0.029"/>
+  <testcase name="testbuildFromCollection" classname="multiset.HashMultiSetTest" time="0.001"/>
+  <testcase name="testBuildFromFileNull" classname="multiset.HashMultiSetTest" time="0.0"/>
   <testcase name="testElementFrequency" classname="multiset.HashMultiSetTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

@@ -46,15 +46,16 @@ public final class HashMultiSet<T, V> {
 	    int index = HashKey.indexOf(t);
         V valueToInsert;
 	    if(index==-1){
-	        HashKey.add(t);
 	        Integer firstValue = 1;
             valueToInsert = (V)firstValue;
+			HashKey.add(t);
 	        Frequency.add(valueToInsert);
         }
         else{
-            Integer newValue = ((Integer)Frequency.get(index)).intValue() + 1;
+            Integer newValue = ((Integer)Frequency.get(index)).intValue();
+            ++newValue;
             valueToInsert = (V)newValue;
-            Frequency.add(index,valueToInsert);
+            Frequency.set(index,valueToInsert);
         }
         return valueToInsert;
 	}
@@ -100,10 +101,10 @@ public final class HashMultiSet<T, V> {
 
 		String readFileString = new String(Files.readAllBytes(source));
 		List<String> listOfString =  Stream.of(readFileString.split(",")).collect(Collectors.toList());
+
 		for(String i:listOfString){
 			addElement((T)i);
 		}
-
 	}
 
 	/**

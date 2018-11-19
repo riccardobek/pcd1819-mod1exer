@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import java.net.InetSocketAddress;
-import java.nio.channels.SocketChannel;
 import java.util.stream.Collectors;
 import java.util.HashMap;
+
 
 public class MerkleValidityRequest {
 
@@ -52,27 +51,30 @@ public class MerkleValidityRequest {
 	 * 	<p>method to check whether the current transaction is valid or not.</p>
 	 * */
 	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException {
-        InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr, authPort);
-        SocketChannel client = SocketChannel.open(remoteAddress);
 
         Map<Boolean,List<String>> result = new HashMap<>();
 
-        if(client.isConnected()){
-            List<String> trueValue = mRequests.stream().filter(t -> isTransactionValid(t, mRequests)).collect(Collectors.toList());
-            List<String> falseValue = mRequests.stream().filter(t -> !isTransactionValid(t,mRequests)).collect(Collectors.toList());
+		List<String> trueValue = new ArrayList<>();
+		List<String> falseValue = new ArrayList<>();
 
-            result.put(true,trueValue);
-            result.put(false,falseValue);
-        }
-        else{
-            throw new IOException();
-        }
+		for(String merkleTx : mRequests){
+        	List<String> serverValue = mRequests.stream().filter(s->!merkleTx.equals(s)).collect(Collectors.toList());
 
-        client.close();
+        	if(isTransactionValid(merkleTx,serverValue))
+        		trueValue.add(merkleTx);
+        	else
+        		falseValue.add(merkleTx);
+		}
 
-        return result;
+        result.put(true,trueValue);
+		result.put(false,falseValue);
 
-		//throw new UnsupportedOperationException();
+		System.out.println("Valori true : "+trueValue);
+		System.out.println("Valori false : "+falseValue);
+		System.out.println("Root : "+mRoot);
+
+
+		return result;
 	}
 	
 	/**
@@ -85,10 +87,12 @@ public class MerkleValidityRequest {
 	 *  @return: boolean value indicating whether this transaction was validated or not.
 	 * */
 	private boolean isTransactionValid(String merkleTx, List<String> merkleNodes) {
-		//TODO: Here I have to use the mRoot!!!
-
-	    //throw new UnsupportedOperationException();
-        return true;
+		String computedRoot = merkleTx;
+		for (String merkleNode : merkleNodes) {
+			computedRoot += merkleNode;
+			computedRoot = HashUtil.md5Java(computedRoot);
+		}
+		return  mRoot.equals(computedRoot);
 	}
 
 	/**

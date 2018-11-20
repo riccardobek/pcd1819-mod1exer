@@ -18,7 +18,7 @@ public class HashMultiSetTest {
 	public ExpectedException exception = ExpectedException.none();
 	
 	@Test
-	public void testbuildFromCollection() {
+	public void testBuildFromCollection() {
 	    exception.expect(IllegalArgumentException.class);
 	    exception.expectMessage("Method should be invoked with a non null file path");
 	    HashMultiSet<String, Integer> hmSet = new HashMultiSet<>();
@@ -34,7 +34,7 @@ public class HashMultiSetTest {
 	}
 
 	@Test
-	public void testbuildFromCollectionNotNullLinearize() {
+	public void testBuildFromCollectionNotNullLinearize() {
 		List<String> list = Arrays.asList("ab","bc","bc");
 		HashMultiSet<String,Integer> hmSet = new HashMultiSet<>();
 		hmSet.buildFromCollection(list);

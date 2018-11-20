@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 public class Main {
 
-	public static final void main(String args[]) throws IOException {
+	public static final void main(String args[]) throws IOException, InterruptedException {
 		
 		String merkleRoot = HashUtil.md5Java("0000000000");
 		String merkleTx_1 = HashUtil.md5Java("0000000001");

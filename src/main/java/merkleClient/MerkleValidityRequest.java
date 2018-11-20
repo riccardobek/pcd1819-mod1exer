@@ -1,12 +1,19 @@
 package merkleClient;
 
 import java.io.IOException;
+import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import java.util.stream.Collectors;
 import java.util.HashMap;
+
+
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+import java.util.stream.Stream;
 
 
 public class MerkleValidityRequest {
@@ -50,29 +57,54 @@ public class MerkleValidityRequest {
 	 * 	<p>Uses the utility method {@link #isTransactionValid(String, List<String>) isTransactionValid} </p>
 	 * 	<p>method to check whether the current transaction is valid or not.</p>
 	 * */
-	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException {
+	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException, InterruptedException{
+		//Creata la connessione con il server
+		InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr,authPort);
+		SocketChannel client = SocketChannel.open(remoteAddress);
 
-        Map<Boolean,List<String>> result = new HashMap<>();
-
+		List<String> serverValue;
 		List<String> trueValue = new ArrayList<>();
 		List<String> falseValue = new ArrayList<>();
 
-		for(String merkleTx : mRequests){
-        	List<String> serverValue = mRequests.stream().filter(s->!merkleTx.equals(s)).collect(Collectors.toList());
+		//Passo al server le transazioni richieste e mi aspetto che mi restituisca una lista di stringhe
+		//per poter procedere con la validazione mediante il metodo isTransationValid(--,--).
+		for (String currentTransaction : mRequests) {
 
-        	if(isTransactionValid(merkleTx,serverValue))
-        		trueValue.add(merkleTx);
-        	else
-        		falseValue.add(merkleTx);
+			//Inserisco nel buffer la mia transazione corrente e attendo risposta dal server
+			byte[] message = currentTransaction.getBytes();
+			ByteBuffer buffer = ByteBuffer.wrap(message);
+			client.write(buffer);
+			buffer.clear();
+
+			/*
+			* Attendere che il server carichi i dati al client
+			* Controllare che non si siano verificati errori: superato tempo limite o buffer pieno
+			* Procedere con l'inserimento di quanto ottenuto in una lista
+			*/
+			client.read(buffer);
+			message = buffer.array();
+
+			//Faccio in modo che il messagio che gli passo sia composto da strighe concatenate separate
+			//da una virgola senza spazi
+			serverValue = Stream.of(message.toString().split(",")).collect(Collectors.toList());
+			buffer.clear();
+
+			if(isTransactionValid(currentTransaction,serverValue))
+				trueValue.add(currentTransaction);
+			else
+				falseValue.add(currentTransaction);
+
+			Thread.sleep(10000);
 		}
+
+		//Chiusa la connessione
+		client.close();
+
+
+        Map<Boolean,List<String>> result = new HashMap<>();
 
         result.put(true,trueValue);
 		result.put(false,falseValue);
-
-		System.out.println("Valori true : "+trueValue);
-		System.out.println("Valori false : "+falseValue);
-		System.out.println("Root : "+mRoot);
-
 
 		return result;
 	}
@@ -92,6 +124,7 @@ public class MerkleValidityRequest {
 			computedRoot += merkleNode;
 			computedRoot = HashUtil.md5Java(computedRoot);
 		}
+
 		return  mRoot.equals(computedRoot);
 	}
 

@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * <p>A MultiSet models a data structure containing elements along with their frequency count i.e., </p>
@@ -21,16 +22,13 @@ public final class HashMultiSet<T, V> {
     /**
      *XXX: data structure backing this MultiSet implementation.
      */
-    private List<T> HashKey;
-    private List<V> Frequency;
-
+    private HashMap<T,V> multiSet;
 	
 	/**
 	 * Sole constructor of the class.
 	 **/
 	public HashMultiSet() {
-	    HashKey = new ArrayList<>();
-	    Frequency = new ArrayList<>();
+		multiSet = new HashMap<>();
 	}
 	
 	
@@ -43,21 +41,14 @@ public final class HashMultiSet<T, V> {
 	 * @return V: frequency count of the element in the multiset
 	 * */	
 	public V addElement(T t) {
-	    int index = HashKey.indexOf(t);
-        V valueToInsert;
-	    if(index==-1){
-	        Integer firstValue = 1;
-            valueToInsert = (V)firstValue;
-			HashKey.add(t);
-	        Frequency.add(valueToInsert);
-        }
-        else{
-            Integer newValue = ((Integer)Frequency.get(index)).intValue();
-            ++newValue;
-            valueToInsert = (V)newValue;
-            Frequency.set(index,valueToInsert);
-        }
-        return valueToInsert;
+		if(multiSet.containsKey(t)){
+			Number newValue = ((Integer)multiSet.get(t)) + 1;
+			multiSet.replace(t,(V)newValue);
+			return (V)newValue;
+		}
+		Number firstValue = 1;
+		multiSet.put(t,(V)firstValue);
+		return (V)firstValue;
 	}
 
 	/**
@@ -68,7 +59,7 @@ public final class HashMultiSet<T, V> {
 	 * @return V: true if the element is present, false otherwise.
 	 * */	
 	public boolean isPresent(T t) {
-		return HashKey.indexOf(t)!=-1;
+		return multiSet.containsKey(t);
 	}
 	
 	/**
@@ -76,11 +67,11 @@ public final class HashMultiSet<T, V> {
 	 * @return V: frequency count of parameter t ('0' if not present)
 	 * */
 	public V getElementFrequency(T t) {
-		if(HashKey.indexOf(t)!=-1){
-		    return Frequency.get(HashKey.indexOf(t));
+		if(multiSet.containsKey(t)){
+		    return multiSet.get(t);
         }
-        Integer results = 0;
-        return (V)results;
+        Number result = 0;
+        return (V)result;
 	}
 	
 	
@@ -92,12 +83,14 @@ public final class HashMultiSet<T, V> {
 	 * 
 	 * @param source Path: source of the multiset
 	 * */
-	public void buildFromFile(Path source) throws IOException, IllegalArgumentException {
+	public void buildFromFile(Path source) throws IOException {
 		if(source == null)
 			throw new IllegalArgumentException("Method should be invoked with a non null file path");
 
 		if(Files.notExists(source))
 			throw new IOException("The method should be invoked on an existing file");
+
+		multiSet.clear();
 
 		String readFileString = new String(Files.readAllBytes(source));
 		List<String> listOfString =  Stream.of(readFileString.split(",")).collect(Collectors.toList());
@@ -114,7 +107,8 @@ public final class HashMultiSet<T, V> {
 	public void buildFromCollection(List<? extends T> source) throws IllegalArgumentException {
 		if(source == null)
 			throw new IllegalArgumentException("Method should be invoked with a non null file path");
-        for(T i:source){
+
+		for(T i:source){
             addElement(i);
         }
 	}
@@ -127,11 +121,14 @@ public final class HashMultiSet<T, V> {
 	 */
 	public List<T> linearize() {
 	    List<T> result = new ArrayList<>();
-        for (int i=0;i<HashKey.size();++i) {
-            for(int j=0;j<(Integer)Frequency.get(i);++j){
-                result.add(HashKey.get(i));
-            }
-        }
+
+	    multiSet.forEach((T t, V v)->{
+	    	int end = (int)multiSet.get(t);
+	    	for(int i=0;i<end;++i){
+	    		result.add(t);
+			}
+		});
+
         return result;
 	}
 	

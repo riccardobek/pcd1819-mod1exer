@@ -71,9 +71,15 @@ public class HashMultiSetTest {
 	public void testBuildFromFileExist() throws IOException{
 		HashMultiSet<String,Integer> hmSet = new HashMultiSet<>();
 		hmSet.buildFromFile(Paths.get("src\\test\\java\\multiset\\test.txt"));
-		List<String> list = hmSet.linearize();
-		List<String> list2 = Arrays.asList("abc","abc","abc","cde","cde","cde","dhf","lmn","kqr","zzz","zzz");
-		assertTrue(list.equals(list2));
+
+		List<String> list = Arrays.asList("abc","cde","dhf","cde","abc","lmn","kqr","zzz","zzz","abc","cde");
+		HashMultiSet<String,Integer> hmSet2 = new HashMultiSet<>();
+		hmSet2.buildFromCollection(list);
+
+		List<String> list1 = hmSet.linearize();
+		List<String> list2 = hmSet2.linearize();
+
+		assertTrue(list1.equals(list2));
 	}
 
 }

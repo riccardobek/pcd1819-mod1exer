@@ -1,15 +1,12 @@
 package merkleClient;
 
 import java.io.IOException;
-import java.nio.channels.Channel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import java.util.stream.Collectors;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.HashMap;
-
-
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -54,15 +51,19 @@ public class MerkleValidityRequest {
 	 * 	<p>For each transaction the client does the following:</p>
 	 * 		<p>1.: asks for a validityProof for the current transaction</p>
 	 * 		<p>2.: listens for a list of hashes which constitute the merkle nodes contents</p>
-	 * 	<p>Uses the utility method {@link #isTransactionValid(String, List<String>) isTransactionValid} </p>
+	 * 	<p>Uses the utility method {@link @code #isTransactionValid(String, List<String>) isTransactionValid}</p>
 	 * 	<p>method to check whether the current transaction is valid or not.</p>
 	 * */
 	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException, InterruptedException{
+
+
 		//Creata la connessione con il server
-		InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr,authPort);
+		InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr, authPort);
 		SocketChannel client = SocketChannel.open(remoteAddress);
 
-		List<String> serverValue;
+		//Inizializzo le variabili necessarie
+		List<String> serverValues;
+		Map<Boolean,List<String>> result = new HashMap<>();
 		List<String> trueValue = new ArrayList<>();
 		List<String> falseValue = new ArrayList<>();
 
@@ -70,39 +71,42 @@ public class MerkleValidityRequest {
 		//per poter procedere con la validazione mediante il metodo isTransationValid(--,--).
 		for (String currentTransaction : mRequests) {
 
-			//Inserisco nel buffer la mia transazione corrente e attendo risposta dal server
+			//trasformo in byte il messaggio da passare al server
 			byte[] message = currentTransaction.getBytes();
-			ByteBuffer buffer = ByteBuffer.wrap(message);
-			client.write(buffer);
-			buffer.clear();
 
 			/*
-			* Attendere che il server carichi i dati al client
-			* Controllare che non si siano verificati errori: superato tempo limite o buffer pieno
-			* Procedere con l'inserimento di quanto ottenuto in una lista
+			* Specifico la dimensione del buffer in base a quanto specificato dal server a cui sono connesso
+			* in questo modo è il server a doversi preoccupare di quanti byte passare per poter procedere alla
+			* validazione e non il client che non sa quanto aspettarsi.
 			*/
-			client.read(buffer);
-			message = buffer.array();
-
-			//Faccio in modo che il messagio che gli passo sia composto da strighe concatenate separate
-			//da una virgola senza spazi
-			serverValue = Stream.of(message.toString().split(",")).collect(Collectors.toList());
+			ByteBuffer buffer = ByteBuffer.allocate(client.socket().getSendBufferSize());
+			//Inserisco il messaggio nel buffer
+			buffer.put(message);
+			//Lo scrivo nel SocketChannel in modo che il server possa legerlo
+			client.write(buffer);
+			//Reindicizzo il buffer
 			buffer.clear();
 
-			if(isTransactionValid(currentTransaction,serverValue))
+			//Leggo la risposta del server
+			client.read(buffer);
+			/*Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
+			* Le stringhe nel serverValues sono tutte già codificate in md5
+			*/
+			serverValues = (Stream.of(Arrays.toString(buffer.array()).split(" , ")).collect(Collectors.toList()));
+
+			//Individuo a quale lista appartiene la mia transazione corrente
+			if(isTransactionValid(currentTransaction,serverValues))
 				trueValue.add(currentTransaction);
 			else
 				falseValue.add(currentTransaction);
 
-			Thread.sleep(10000);
-		}
+			Thread.sleep(5000);
 
+		}
 		//Chiusa la connessione
 		client.close();
 
-
-        Map<Boolean,List<String>> result = new HashMap<>();
-
+		//Inserisco il risultato di quanto ho ottenuto dalla comunicazione con il server
         result.put(true,trueValue);
 		result.put(false,falseValue);
 
@@ -116,7 +120,7 @@ public class MerkleValidityRequest {
 	 *  @param merkleNodes String: the hash codes of the merkle nodes required to compute 
 	 *  the merkle root
 	 *  
-	 *  @return: boolean value indicating whether this transaction was validated or not.
+	 *  @return : boolean value indicating whether this transaction was validated or not.
 	 * */
 	private boolean isTransactionValid(String merkleTx, List<String> merkleNodes) {
 		String computedRoot = merkleTx;

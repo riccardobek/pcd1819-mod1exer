@@ -98,9 +98,10 @@ public class MerkleValidityRequest {
 				ByteBuffer bufferReceive = ByteBuffer.allocate(client.socket().getReceiveBufferSize());
 				client.read(bufferReceive);
 
-				/*Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
-				 * Le stringhe nel serverValues sono tutte già codificate in md5
-				 */
+				/*
+				 * Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
+				 * Le stringhe nel serverValues sono tutte già codificate in md5.
+				 * */
 				serverValues = (Stream.of(Arrays.toString(buffer.array()).trim().split(" , ")).collect(Collectors.toList()));
 
 				//Individuo a quale lista appartiene la mia transazione corrente
@@ -113,6 +114,9 @@ public class MerkleValidityRequest {
 			Thread.sleep(2000);
 
 		}
+		/*
+		* Elimino il valore close nella mRequest e chiudo la connessione con il server
+		* */
 		mRequests.remove("close");
 		client.close();
 

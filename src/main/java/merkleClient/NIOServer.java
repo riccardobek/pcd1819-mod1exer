@@ -23,8 +23,12 @@ public class NIOServer {
 		serverSocket.configureBlocking(false);
 		int ops = serverSocket.validOps();
 		SelectionKey selectKy = serverSocket.register(selector, ops, null);
-		
-		//Definisco il numero di byte che può ricevere il socket
+
+		/*
+		* Poichè il server conosce la dimensione del merkle tree sa anche quale è la dimenione nel caso peggiore
+		* in byte che dovrà essere inviata di conseguenza setto i parametri del socket a cui può accedere il client
+		* dopo l'avvenuta connessione
+		* */
 		serverSocket.socket().setReceiveBufferSize(256);
 		 
 		while (true) {
@@ -48,8 +52,14 @@ public class NIOServer {
 					String result = new String(buffer.array()).trim();
 					log("--- Message received: " + result, "err" );
 
-					//Esempio di stringa da passare
+					/*
+					* In questa sezione si richiama la funzione che permette di calcolare
+					* l'insieme delle stringhe da passare al client e le si combinano in una unica.
+					*
+					* Esempio di stringa passata al client
+					* */
 					String s = new String("639fc2398fd45606ada087e30168287b , 4dde77cd192e5101fe0a317e00ba3827");
+
 					ByteBuffer bufferSend = ByteBuffer.wrap(s.getBytes());
 					clientSocket.write(bufferSend);
 					

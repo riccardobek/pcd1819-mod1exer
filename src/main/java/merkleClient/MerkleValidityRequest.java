@@ -69,7 +69,14 @@ public class MerkleValidityRequest {
 
 		//Passo al server le transazioni richieste e mi aspetto che mi restituisca una lista di stringhe
 		//per poter procedere con la validazione mediante il metodo isTransationValid(--,--).
+
+		mRequests.add("close");
+
 		for (String currentTransaction : mRequests) {
+
+			/*Se arrivo all'ultima transazione che è la close insertita chiudo la connessione e ripristino
+			* mRequest come lo ho ottenuto eliminando la "close"
+			*/
 
 			//trasformo in byte il messaggio da passare al server
 			byte[] message = currentTransaction.getBytes();
@@ -79,36 +86,42 @@ public class MerkleValidityRequest {
 			* in questo modo è il server a doversi preoccupare di quanti byte passare per poter procedere alla
 			* validazione e non il client che non sa quanto aspettarsi.
 			*/
-			ByteBuffer buffer = ByteBuffer.allocate(client.socket().getSendBufferSize());
-			//Inserisco il messaggio nel buffer
-			buffer.put(message);
+			ByteBuffer buffer = ByteBuffer.wrap(message);
 			//Lo scrivo nel SocketChannel in modo che il server possa legerlo
 			client.write(buffer);
 			//Reindicizzo il buffer
 			buffer.clear();
 
-			//Leggo la risposta del server
-			client.read(buffer);
-			/*Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
-			* Le stringhe nel serverValues sono tutte già codificate in md5
-			*/
-			serverValues = (Stream.of(Arrays.toString(buffer.array()).split(" , ")).collect(Collectors.toList()));
+			if(!currentTransaction.equals("close")) {
 
-			//Individuo a quale lista appartiene la mia transazione corrente
-			if(isTransactionValid(currentTransaction,serverValues))
-				trueValue.add(currentTransaction);
-			else
-				falseValue.add(currentTransaction);
+				//Leggo la risposta del server
+				ByteBuffer bufferReceive = ByteBuffer.allocate(client.socket().getReceiveBufferSize());
+				client.read(bufferReceive);
 
-			Thread.sleep(5000);
+				/*Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
+				 * Le stringhe nel serverValues sono tutte già codificate in md5
+				 */
+				serverValues = (Stream.of(Arrays.toString(buffer.array()).trim().split(" , ")).collect(Collectors.toList()));
+
+				//Individuo a quale lista appartiene la mia transazione corrente
+				if (isTransactionValid(currentTransaction, serverValues))
+					trueValue.add(currentTransaction);
+				else
+					falseValue.add(currentTransaction);
+			}
+
+			Thread.sleep(2000);
 
 		}
-		//Chiusa la connessione
+		mRequests.remove("close");
 		client.close();
 
 		//Inserisco il risultato di quanto ho ottenuto dalla comunicazione con il server
         result.put(true,trueValue);
 		result.put(false,falseValue);
+
+		System.out.println(trueValue);
+		System.out.println(falseValue);
 
 		return result;
 	}

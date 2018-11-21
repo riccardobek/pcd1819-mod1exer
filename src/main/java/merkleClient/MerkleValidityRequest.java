@@ -86,11 +86,10 @@ public class MerkleValidityRequest {
 			* in questo modo è il server a doversi preoccupare di quanti byte passare per poter procedere alla
 			* validazione e non il client che non sa quanto aspettarsi.
 			*/
-			ByteBuffer buffer = ByteBuffer.wrap(message);
+			ByteBuffer bufferSend = ByteBuffer.wrap(message);
 			//Lo scrivo nel SocketChannel in modo che il server possa legerlo
-			client.write(buffer);
-			//Reindicizzo il buffer
-			buffer.clear();
+			client.write(bufferSend);
+			bufferSend.clear();
 
 			if(!currentTransaction.equals("close")) {
 
@@ -98,11 +97,12 @@ public class MerkleValidityRequest {
 				ByteBuffer bufferReceive = ByteBuffer.allocate(client.socket().getReceiveBufferSize());
 				client.read(bufferReceive);
 
+				System.out.println(new String(bufferReceive.array(),"UTF-8"));
 				/*
 				 * Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
 				 * Le stringhe nel serverValues sono tutte già codificate in md5.
 				 * */
-				serverValues = (Stream.of(Arrays.toString(buffer.array()).trim().split(" , ")).collect(Collectors.toList()));
+				serverValues = (Stream.of(new String(bufferReceive.array(),"UTF-8").split(" , ")).collect(Collectors.toList()));
 
 				//Individuo a quale lista appartiene la mia transazione corrente
 				if (isTransactionValid(currentTransaction, serverValues))

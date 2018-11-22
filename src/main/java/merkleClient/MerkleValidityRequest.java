@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.net.InetSocketAddress;
@@ -55,77 +54,78 @@ public class MerkleValidityRequest {
 	 * 	<p>method to check whether the current transaction is valid or not.</p>
 	 * */
 	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException, InterruptedException{
-
-
-		//Creata la connessione con il server
-		InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr, authPort);
-		SocketChannel client = SocketChannel.open(remoteAddress);
-
-		//Inizializzo le variabili necessarie
+//Inizializzo le variabili necessarie
 		List<String> serverValues;
-		Map<Boolean,List<String>> result = new HashMap<>();
+		Map<Boolean, List<String>> result = new HashMap<>();
 		List<String> trueValue = new ArrayList<>();
 		List<String> falseValue = new ArrayList<>();
 
-		//Passo al server le transazioni richieste e mi aspetto che mi restituisca una lista di stringhe
-		//per poter procedere con la validazione mediante il metodo isTransationValid(--,--).
+		try {
+			//Creata la connessione con il server
+			InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr, authPort);
+			SocketChannel client = SocketChannel.open(remoteAddress);
 
-		mRequests.add("close");
 
-		for (String currentTransaction : mRequests) {
+			//Passo al server le transazioni richieste e mi aspetto che mi restituisca una lista di stringhe
+			//per poter procedere con la validazione mediante il metodo isTransationValid(--,--).
 
-			/*Se arrivo all'ultima transazione che è la close insertita chiudo la connessione e ripristino
-			* mRequest come lo ho ottenuto eliminando la "close"
-			*/
+			mRequests.add("close");
 
-			//trasformo in byte il messaggio da passare al server
-			byte[] message = currentTransaction.getBytes();
+			for (String currentTransaction : mRequests) {
 
-			/*
-			* Specifico la dimensione del buffer in base a quanto specificato dal server a cui sono connesso
-			* in questo modo è il server a doversi preoccupare di quanti byte passare per poter procedere alla
-			* validazione e non il client che non sa quanto aspettarsi.
-			*/
-			ByteBuffer bufferSend = ByteBuffer.wrap(message);
-			//Lo scrivo nel SocketChannel in modo che il server possa legerlo
-			client.write(bufferSend);
-			bufferSend.clear();
+				/*Se arrivo all'ultima transazione che è la close insertita chiudo la connessione e ripristino
+				 * mRequest come lo ho ottenuto eliminando la "close"
+				 */
 
-			if(!currentTransaction.equals("close")) {
+				//trasformo in byte il messaggio da passare al server
+				byte[] message = currentTransaction.getBytes();
 
-				//Leggo la risposta del server
-				ByteBuffer bufferReceive = ByteBuffer.allocate(client.socket().getReceiveBufferSize());
-				client.read(bufferReceive);
+				//Definisco la dimensione del buffer di invio sulla base del messaggio da inviare
+				ByteBuffer bufferSend = ByteBuffer.wrap(message);
+				//Lo scrivo nel SocketChannel in modo che il server possa leggerlo
+				client.write(bufferSend);
+				bufferSend.clear();
 
-				System.out.println(new String(bufferReceive.array(),"UTF-8"));
-				/*
-				 * Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
-				 * Le stringhe nel serverValues sono tutte già codificate in md5.
-				 * */
-				serverValues = (Stream.of(new String(bufferReceive.array(),"UTF-8").split(" , ")).collect(Collectors.toList()));
+				if (!currentTransaction.equals("close")) {
+					/*
+					 * Specifico la dimensione del buffer in base a quanto specificato dal server a cui sono connesso
+					 * in questo modo è il server a doversi preoccupare di quanti byte passare per poter procedere alla
+					 * validazione e non il client che non sa quanto aspettarsi.
+					 */
+					ByteBuffer bufferReceive = ByteBuffer.allocate(client.socket().getReceiveBufferSize());
+					//Leggo la risposta del server
+					client.read(bufferReceive);
 
-				//Individuo a quale lista appartiene la mia transazione corrente
-				if (isTransactionValid(currentTransaction, serverValues))
-					trueValue.add(currentTransaction);
-				else
-					falseValue.add(currentTransaction);
+					/*
+					 * Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
+					 * Le stringhe nel serverValues sono tutte già codificate in md5.
+					 * */
+					serverValues = (Stream.of(new String(bufferReceive.array(), "UTF-8").split(" , ")).collect(Collectors.toList()));
+
+					//Individuo a quale lista appartiene la mia transazione corrente
+					if (isTransactionValid(currentTransaction, serverValues))
+						trueValue.add(currentTransaction);
+					else
+						falseValue.add(currentTransaction);
+				}
+
+				Thread.sleep(2000);
+
 			}
-
-			Thread.sleep(2000);
-
+			/*
+			 * Elimino il valore "close" nella mRequest e chiudo la connessione con il server
+			 * */
+			mRequests.remove("close");
+			client.close();
 		}
-		/*
-		* Elimino il valore close nella mRequest e chiudo la connessione con il server
-		* */
-		mRequests.remove("close");
-		client.close();
+		catch (IOException e){
+			System.out.println("Il server ha smesso di funzionare. Errore: "+e.getStackTrace());
+			return result;
+		}
 
 		//Inserisco il risultato di quanto ho ottenuto dalla comunicazione con il server
         result.put(true,trueValue);
 		result.put(false,falseValue);
-
-		System.out.println(trueValue);
-		System.out.println(falseValue);
 
 		return result;
 	}

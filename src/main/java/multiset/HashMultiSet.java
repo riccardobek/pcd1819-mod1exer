@@ -92,6 +92,11 @@ public final class HashMultiSet<T, V> {
 
 		multiSet.clear();
 
+		/*
+		* Si è separato in due righe la lettura del file prevedendo che nella prima riga interpreti il file
+		* in stringa. In seguito procedo alla separazione della stringa ottenuta sulla base della notazione
+		* definita, ovvero separo alla presenza del seguente smbolo ','.
+		* */
 		String readFileString = new String(Files.readAllBytes(source));
 		List<String> listOfString =  Stream.of(readFileString.split(",")).collect(Collectors.toList());
 
@@ -122,6 +127,10 @@ public final class HashMultiSet<T, V> {
 	public List<T> linearize() {
 	    List<T> result = new ArrayList<>();
 
+	    /*
+	    * Senza utilizzare gli stream viene utilizzato il metodo della classe forEach per ciclare
+	    * all'interno della mappa e un semplice ciclo for per memorizzare sulla lista risultato i dati.
+	    * */
 	    multiSet.forEach((T t, V v)->{
 	    	int end = (int)multiSet.get(t);
 	    	for(int i=0;i<end;++i){

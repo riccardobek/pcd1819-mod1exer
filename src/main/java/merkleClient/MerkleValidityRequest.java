@@ -73,34 +73,36 @@ public class MerkleValidityRequest {
 
 			for (String currentTransaction : mRequests) {
 
-				/*Se arrivo all'ultima transazione che è la close insertita chiudo la connessione e ripristino
-				 * mRequest come lo ho ottenuto eliminando la "close"
-				 */
-
 				//trasformo in byte il messaggio da passare al server
 				byte[] message = currentTransaction.getBytes();
 
-				//Definisco la dimensione del buffer di invio sulla base del messaggio da inviare
-				ByteBuffer bufferSend = ByteBuffer.wrap(message);
-				//Lo scrivo nel SocketChannel in modo che il server possa leggerlo
-				client.write(bufferSend);
-				bufferSend.clear();
+				/*
+				 * Specifico la dimensione del buffer in base a quanto specificato dal server a cui sono connesso
+				 * in questo modo è il server a doversi preoccupare di quanti byte passare per poter procedere alla
+				 * validazione e non il client che non sa quanto aspettarsi.
+				 */
+				ByteBuffer buffer = ByteBuffer.allocate(client.socket().getReceiveBufferSize());
+				buffer.put(message);
+				/*
+				* In seguito alla put il buffer ha un puntatore alla parte subito dopo del messaggio inserito.
+				* Con flip ritorno all'inizio.
+				* */
+				buffer.flip();
+				//Scrivo il mio messaggio nel SocketChannel in modo che il server possa leggerlo
+				client.write(buffer);
+
+				//Pulisco il buffer
+				buffer.clear();
 
 				if (!currentTransaction.equals("close")) {
-					/*
-					 * Specifico la dimensione del buffer in base a quanto specificato dal server a cui sono connesso
-					 * in questo modo è il server a doversi preoccupare di quanti byte passare per poter procedere alla
-					 * validazione e non il client che non sa quanto aspettarsi.
-					 */
-					ByteBuffer bufferReceive = ByteBuffer.allocate(client.socket().getReceiveBufferSize());
 					//Leggo la risposta del server
-					client.read(bufferReceive);
+					client.read(buffer);
 
 					/*
 					 * Prendo il messaggio in byte, lo converto in stringa, dividendolo in presenza di " , " e le metto in lista.
 					 * Le stringhe nel serverValues sono tutte già codificate in md5.
 					 * */
-					serverValues = (Stream.of(new String(bufferReceive.array(), "UTF-8").split(" , ")).collect(Collectors.toList()));
+					serverValues = (Stream.of(new String(buffer.array(), "UTF-8").split(" , ")).collect(Collectors.toList()));
 
 					//Individuo a quale lista appartiene la mia transazione corrente
 					if (isTransactionValid(currentTransaction, serverValues))
@@ -113,7 +115,7 @@ public class MerkleValidityRequest {
 
 			}
 			/*
-			 * Elimino il valore "close" nella mRequest e chiudo la connessione con il server
+			 * Elimino il valore "close" della mRequest e chiudo la connessione con il server
 			 * */
 			mRequests.remove("close");
 			client.close();

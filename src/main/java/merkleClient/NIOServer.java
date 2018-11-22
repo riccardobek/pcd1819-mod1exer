@@ -53,7 +53,7 @@ public class NIOServer {
 					clientSocket.read(buffer);
 					String result = new String(buffer.array()).trim();
 					log("--- Message received: " + result, "err" );
-
+					buffer.clear();
 					/*
 					* In questa sezione si richiama la funzione che permette di calcolare
 					* l'insieme delle stringhe da passare al client e le si combinano in una unica.
@@ -62,8 +62,10 @@ public class NIOServer {
 					* */
 					String s = new String("639fc2398fd45606ada087e30168287b , 4dde77cd192e5101fe0a317e00ba3827");
 
-					ByteBuffer bufferSend = ByteBuffer.wrap(s.getBytes());
-					clientSocket.write(bufferSend);
+					//ByteBuffer bufferSend = ByteBuffer.wrap(s.getBytes());
+					buffer.put(s.getBytes());
+					buffer.flip();
+					clientSocket.write(buffer);
 					
 					if (result.equals("close")) {
 						clientSocket.close();

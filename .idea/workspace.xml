@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6737a5b8-fd17-4673-90a7-347b6c75f7ed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/multiset/HashMultiSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/multiset/HashMultiSet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/nio/clientServer/NIOServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/merkleClient/NIOServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/merkleClient/NIOServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -121,10 +121,11 @@
     <session id="815324907">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.21" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.22" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -139,12 +140,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1695" />
+          <entry key="java" value="2192" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1695" />
+          <entry key="JAVA" value="2192" />
         </counts>
       </usages-collector>
     </session>
@@ -154,20 +155,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
+            <state relative-caret-position="132">
+              <caret line="122" column="26" lean-forward="true" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -611,6 +603,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -656,7 +649,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -829,8 +821,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22672065" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23076923" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -848,7 +841,7 @@
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50226927" side_tool="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.3295082" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.3295082" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3291815" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
       <window_info anchor="right" id="Palette" order="2" />
@@ -979,15 +972,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+        <state relative-caret-position="268">
+          <caret line="65" column="22" lean-forward="true" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
+        <state relative-caret-position="132">
+          <caret line="122" column="26" lean-forward="true" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

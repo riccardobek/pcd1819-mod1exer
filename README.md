@@ -87,36 +87,5 @@ discussed during the lectures.
 
 Note: Exception handling of events occurring in the client side is very important.
 
-## Project Delivery
-
-Below you can find some details regarding exercise delivery and grading strategy
-
-### How
-The delivery will happen via email, sent to me following these criteria: 
-(1) The email subject adheres to the following format: [pcd] Name Surname Student_Identifier, the textual contents of the email
-are not important but you can repeat the subject (e.g., [pcd] pinco palino 123432). 
-(2) The source files comprising the 'src' directory the 'settings.gradle' and 'build.gradle' should be wrapped inside a root directory named
-according to the format name-surname-studentIdentifier (e.g., pinco-pallino-123432) and compressed. Only the compressed file should be sent through email. 
-
-
-Directory structure example:
-
-```
-pinco-pallino-123432 
-│   build.gradle
-│   settings.gradle
-│
-└───src
-
-```
-
-** Note that no external archives should be referenced in you project. **
-
-Failure to meet these criteria can result in you project not being evaluated.
-
-### Grading and Written Exam
-
-As explained during the classes, exercises amount to 3 points and are mandatory. You can sustain the written exam evenif you have not delivered the exercises. However, after each exam session the maximum amount of points will age with a factor of \alpha, that is the roof is computed as: 3 - \alpha * 3. In order to abtain a final vote for the exam, the student should have passed the written exam and delivered the exercises.
-
 Due delivery: November 27, 2018. h.23:59
 

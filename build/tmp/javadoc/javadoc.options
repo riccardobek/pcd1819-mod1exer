@@ -1,9 +1,0 @@
--classpath 'D:\\Università\\P3\\PCD1819\\pcd1819-mod1exer\\build\\classes\\java\\main;D:\\Università\\P3\\PCD1819\\pcd1819-mod1exer\\build\\resources\\main'
--d 'D:\\Università\\P3\\PCD1819\\pcd1819-mod1exer\\build\\docs\\javadoc'
--doctitle 'mod1Exercises API'
--quiet 
--windowtitle 'mod1Exercises API'
-'D:\\Università\\P3\\PCD1819\\pcd1819-mod1exer\\src\\main\\java\\merkleClient\\HashUtil.java'
-'D:\\Università\\P3\\PCD1819\\pcd1819-mod1exer\\src\\main\\java\\merkleClient\\Main.java'
-'D:\\Università\\P3\\PCD1819\\pcd1819-mod1exer\\src\\main\\java\\merkleClient\\MerkleValidityRequest.java'
-'D:\\Università\\P3\\PCD1819\\pcd1819-mod1exer\\src\\main\\java\\multiset\\HashMultiSet.java'

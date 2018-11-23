@@ -19,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/pcd1819_mod1exer$pcd1819_mod1exer__test_.ic" NAME="pcd1819-mod1exer [test] Coverage Results" MODIFIED="1542757244968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/pcd1819_mod1exer$pcd1819_mod1exer__test_.ic" NAME="pcd1819-mod1exer [test] Coverage Results" MODIFIED="1542987588912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/pcd1819_mod1exer$Main.ic" NAME="Main Coverage Results" MODIFIED="1542663852849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>merkleClient.*</FILTER>
     </SUITE>
@@ -78,43 +78,47 @@
     <session id="522599631">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="28" />
-          <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.11" value="2" />
-          <entry key="project.open.time.12" value="2" />
-          <entry key="project.open.time.13" value="3" />
-          <entry key="project.open.time.14" value="8" />
-          <entry key="project.open.time.15" value="3" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.19" value="2" />
+          <entry key="project.closed" value="43" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.10" value="3" />
+          <entry key="project.open.time.11" value="3" />
+          <entry key="project.open.time.12" value="4" />
+          <entry key="project.open.time.13" value="5" />
+          <entry key="project.open.time.14" value="9" />
+          <entry key="project.open.time.15" value="4" />
+          <entry key="project.open.time.16" value="2" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.19" value="3" />
+          <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.32" value="1" />
           <entry key="project.open.time.35" value="1" />
           <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="29" />
+          <entry key="project.opened" value="44" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="html" value="3" />
-          <entry key="java" value="69" />
+          <entry key="java" value="77" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="3" />
-          <entry key="JAVA" value="69" />
+          <entry key="JAVA" value="77" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="11277" />
+          <entry key="java" value="11835" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="11277" />
+          <entry key="JAVA" value="11835" />
         </counts>
       </usages-collector>
     </session>
@@ -152,14 +156,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="122" column="26" lean-forward="true" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="26" />
+            <state relative-caret-position="1751">
+              <caret line="115" selection-start-line="115" selection-end-line="115" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -354,7 +367,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4627085614987" />
+        <entry key="$PROJECT_DIR$" value="4627141439446" />
         <entry key="$PROJECT_DIR$/.gradle" value="0" />
         <entry key="$PROJECT_DIR$/build.gradle" value="1474861497" />
         <entry key="$PROJECT_DIR$/settings.gradle" value="2011886151" />
@@ -548,8 +561,8 @@
         <option value="$PROJECT_DIR$/src/main/java/merkleClient/Main.java" />
         <option value="$PROJECT_DIR$/src/test/java/multiset/HashMultiSetTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java" />
       </list>
     </option>
   </component>
@@ -603,35 +616,36 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="pcd1819-mod1exer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcd1819-mod1exer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="pcd1819-mod1exer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pcd1819-mod1exer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcd1819-mod1exer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="pcd1819-mod1exer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pcd1819-mod1exer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcd1819-mod1exer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="pcd1819-mod1exer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="pcd1819-mod1exer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcd1819-mod1exer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="pcd1819-mod1exer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pcd1819-mod1exer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcd1819-mod1exer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="pcd1819-mod1exer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -639,7 +653,7 @@
             </path>
             <path>
               <item name="pcd1819-mod1exer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcd1819-mod1exer" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="pcd1819-mod1exer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -649,11 +663,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542875145479" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542903721275" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -759,8 +772,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.NIOServer (1)" />
-        <item itemvalue="Application.NIOServer" />
         <item itemvalue="Gradle.pcd1819-mod1exer [test]" />
+        <item itemvalue="Application.NIOServer" />
         <item itemvalue="Gradle.pcd1819-mod1exer [javadoc]" />
       </list>
     </recent_temporary>
@@ -779,34 +792,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.20 at 18h 32m 57s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.20 at 18h 33m 45s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.20 at 18h 34m 11s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.20 at 18h 34m 12s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.21 at 00h 20m 31s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.21 at 00h 38m 16s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.21 at 00h 38m 15s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.21 at 00h 39m 49s.xml">
-      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
     <history-entry file="pcd1819-mod1exer_[test] - 2018.11.21 at 00h 39m 50s.xml">
       <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
     </history-entry>
     <history-entry file="pcd1819-mod1exer_[test] - 2018.11.21 at 00h 40m 50s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.22 at 17h 12m 33s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.22 at 17h 22m 26s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.23 at 11h 18m 40s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.23 at 11h 49m 14s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.23 at 13h 02m 54s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.23 at 13h 02m 55s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.23 at 16h 38m 38s.xml">
+      <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="pcd1819-mod1exer_[test] - 2018.11.23 at 16h 39m 56s.xml">
       <configuration name="pcd1819-mod1exer [test]" configurationId="GradleRunConfiguration" />
     </history-entry>
   </component>
@@ -820,10 +833,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23076923" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28971255" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -832,7 +844,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4977307" weight="0.31672597" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4977307" weight="0.31639344" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6240545" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -841,7 +853,7 @@
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50226927" side_tool="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.3295082" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.3291815" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32786885" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
       <window_info anchor="right" id="Palette" order="2" />
@@ -949,20 +961,6 @@
     <entry file="file://$PROJECT_DIR$/build/reports/tests/test/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/multiset/HashMultiSetTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="108" column="39" lean-forward="true" selection-start-line="108" selection-start-column="39" selection-end-line="108" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -970,20 +968,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/multiset/HashMultiSetTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="65" column="22" lean-forward="true" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="22" />
+        <state relative-caret-position="160">
+          <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="108" column="39" selection-start-line="108" selection-start-column="39" selection-end-line="108" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="122" column="26" lean-forward="true" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="26" />
+        <state relative-caret-position="1751">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/NIOServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
         </state>
       </provider>
     </entry>

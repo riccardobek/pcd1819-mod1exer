@@ -49,7 +49,7 @@ public class NIOServer {
 					log("Connection Accepted: " + clientSocket.getLocalAddress() + "\n", "err");
 				} else if (myKey.isReadable()) {
 					SocketChannel clientSocket = (SocketChannel) myKey.channel();
-					ByteBuffer buffer = ByteBuffer.allocate(256);
+					ByteBuffer buffer = ByteBuffer.allocate(serverSocket.socket().getReceiveBufferSize());
 					clientSocket.read(buffer);
 					String result = new String(buffer.array()).trim();
 					log("--- Message received: " + result, "err" );
@@ -62,7 +62,6 @@ public class NIOServer {
 					* */
 					String s = new String("639fc2398fd45606ada087e30168287b , 4dde77cd192e5101fe0a317e00ba3827");
 
-					//ByteBuffer bufferSend = ByteBuffer.wrap(s.getBytes());
 					buffer.put(s.getBytes());
 					buffer.flip();
 					clientSocket.write(buffer);
@@ -72,7 +71,6 @@ public class NIOServer {
 						log("\nIt's time to close this connection as we got a close packet", "out");
 					}
 				}
-				//important: should delete, otherwise re-iterated the next turn again.
 				keys.remove();
 			}
 		}

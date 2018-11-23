@@ -1,6 +1,9 @@
 package merkleClient;
 
 import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.net.ConnectException;
+import java.rmi.RemoteException;
 import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
@@ -54,7 +57,7 @@ public class MerkleValidityRequest {
 	 * 	<p>method to check whether the current transaction is valid or not.</p>
 	 * */
 	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException, InterruptedException{
-//Inizializzo le variabili necessarie
+		//Dichiaro e/o inizializzo le variabili necessarie
 		List<String> serverValues;
 		Map<Boolean, List<String>> result = new HashMap<>();
 		List<String> trueValue = new ArrayList<>();
@@ -65,15 +68,15 @@ public class MerkleValidityRequest {
 			InetSocketAddress remoteAddress = new InetSocketAddress(authIPAddr, authPort);
 			SocketChannel client = SocketChannel.open(remoteAddress);
 
-
-			//Passo al server le transazioni richieste e mi aspetto che mi restituisca una lista di stringhe
-			//per poter procedere con la validazione mediante il metodo isTransationValid(--,--).
-
+			//Aggiungo close per indicare al Server di procedere con la chiusura del canale
 			mRequests.add("close");
-
+			/*
+			* Passo al server le transazioni richieste e mi aspetto che mi restituisca una lista di stringhe
+			* per poter procedere con la validazione mediante il metodo isTransationValid(--,--).
+			* */
 			for (String currentTransaction : mRequests) {
 
-				//trasformo in byte il messaggio da passare al server
+				//Trasformo in byte il messaggio da passare al server
 				byte[] message = currentTransaction.getBytes();
 
 				/*
@@ -111,7 +114,7 @@ public class MerkleValidityRequest {
 						falseValue.add(currentTransaction);
 				}
 
-				Thread.sleep(2000);
+				Thread.sleep(4000);
 
 			}
 			/*
@@ -120,8 +123,16 @@ public class MerkleValidityRequest {
 			mRequests.remove("close");
 			client.close();
 		}
+		catch (ConnectException e){
+			System.out.println("Errore di connessione al server. Controllare hostname e porta." +
+					"\nSe il problema persiste controllare che il server sia in esecuzione." +
+					"\nErrore di tipo: "+e.getStackTrace());
+			return result;
+		}
 		catch (IOException e){
-			System.out.println("Il server ha smesso di funzionare. Errore: "+e.getStackTrace());
+			System.out.println("Si è verificato un errore di tipo input/output." +
+					"\nControllare che il server sia in esecuzione. " +
+					"\nErrore di tipo: "+e.getStackTrace());
 			return result;
 		}
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="multiset.HashMultiSetTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-11-20T23:40:49" hostname="DESKTOP-CT0CCV2" time="0.091">
+<testsuite name="multiset.HashMultiSetTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-11-23T15:39:55" hostname="DESKTOP-CT0CCV2" time="0.288">
   <properties/>
-  <testcase name="testBuildFromFileExist" classname="multiset.HashMultiSetTest" time="0.032"/>
-  <testcase name="testBuildFromCollectionNotNullLinearize" classname="multiset.HashMultiSetTest" time="0.003"/>
-  <testcase name="testBuildFromFileNotExist" classname="multiset.HashMultiSetTest" time="0.046"/>
-  <testcase name="testIsPresent" classname="multiset.HashMultiSetTest" time="0.0"/>
-  <testcase name="testBuildFromFileNull" classname="multiset.HashMultiSetTest" time="0.0"/>
-  <testcase name="testBuildFromCollection" classname="multiset.HashMultiSetTest" time="0.001"/>
-  <testcase name="testElementFrequency" classname="multiset.HashMultiSetTest" time="0.0"/>
+  <testcase name="testBuildFromFileExist" classname="multiset.HashMultiSetTest" time="0.021"/>
+  <testcase name="testBuildFromCollectionNotNullLinearize" classname="multiset.HashMultiSetTest" time="0.001"/>
+  <testcase name="testBuildFromFileNotExist" classname="multiset.HashMultiSetTest" time="0.087"/>
+  <testcase name="testIsPresent" classname="multiset.HashMultiSetTest" time="0.006"/>
+  <testcase name="testBuildFromFileNull" classname="multiset.HashMultiSetTest" time="0.065"/>
+  <testcase name="testBuildFromCollection" classname="multiset.HashMultiSetTest" time="0.011"/>
+  <testcase name="testElementFrequency" classname="multiset.HashMultiSetTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
